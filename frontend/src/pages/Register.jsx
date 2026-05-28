@@ -12,7 +12,7 @@ const INDUSTRIES=["IT Services","Textiles & Garments","Food & Beverages","Pharma
 
 export default function Register() {
   const { register } = useAuth();
-  const navigate = useNavigate();
+  
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [locStatus, setLocStatus] = useState("idle");

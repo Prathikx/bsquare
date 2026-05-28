@@ -31,7 +31,7 @@ export default function ChatModal({ target, onClose }) {
     // Poll for new messages every 5 seconds
     pollRef.current = setInterval(() => fetchMessages(true), 5000);
     return () => clearInterval(pollRef.current);
-  }, [target.id]);
+  }, [target.id, fetchMessages]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
