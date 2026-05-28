@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { messagesAPI } from "../api";
 import { useAuth } from "../AuthContext";
 import toast from "react-hot-toast";
@@ -14,7 +14,7 @@ export default function ChatModal({ target, onClose }) {
   const bottomRef = useRef(null);
   const pollRef = useRef(null);
 
-  const fetchMessages = async (silent = false) => {
+  const fetchMessages = useCallback(async (silent=false) => {
     if (!silent) setLoading(true);
     try {
       const { data } = await messagesAPI.getConversation(target.id);
@@ -31,7 +31,7 @@ export default function ChatModal({ target, onClose }) {
     // Poll for new messages every 5 seconds
     pollRef.current = setInterval(() => fetchMessages(true), 5000);
     return () => clearInterval(pollRef.current);
-  }, [target.id, fetchMessages]);
+  }, [target.id]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
